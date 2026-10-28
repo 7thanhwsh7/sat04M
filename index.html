@@ -260,6 +260,7 @@
   .wcard .brand-logo{font-weight:800;font-size:12.5px;letter-spacing:3px;color:#0b3a74;margin-bottom:3px;}
   .wcard .brand-sub{font-size:11.5px;color:#5b6472;margin-bottom:20px;}
   .wcard h2{font-size:26px;font-weight:800;color:#0b2447;margin:0;letter-spacing:-.3px;}
+  .wcard .wTestNo{display:inline-block;margin-top:10px;font-size:13px;font-weight:800;letter-spacing:1.6px;color:#0b3a74;background:#eef2fb;border:1px solid #c9d6ee;border-radius:3px;padding:4px 14px;text-transform:uppercase;}
   .wcard .wRule{width:42px;height:3px;background:#f2b233;border-radius:2px;margin:16px auto 14px;}
   .wcard .wLead{font-size:14px;color:#2b3440;margin:0 0 20px;}
   .wcard label{display:block;text-align:left;font-size:12.5px;font-weight:700;color:#141414;margin-bottom:6px;}
@@ -434,6 +435,7 @@
       <div class="brand-logo">G.EDU</div>
       <div class="brand-sub">G.EDU Language Center</div>
       <h2>SAT Math Practice</h2>
+      <div class="wTestNo" id="wTestNo"></div>
       <div class="wRule"></div>
       <p class="wLead">Enter your name and class to begin.</p>
       <label for="nameInput">Full name</label>
@@ -647,6 +649,7 @@ const TEST_NAME = "Test 4 M";   // đổi cho mỗi đề — phải trùng tên
 const TEST_SECTION = "M";
 const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyJcjvbCi9xqa0NR-TGyJvpjvqJkcGHKA-x_uw6kazLVng3jKZgsqJg55ae7pPaYmWO_w/exec";
 const TIME_LIMIT_MINUTES = 35;   // thời gian cho MỖI module
+document.getElementById('wTestNo').textContent = TEST_NAME.replace(/\s*M$/i, '');   // số đề trên màn hình chào
 
 /* Sample question data.
    id, domain (internal note only, never shown to students), questionText,
@@ -675,50 +678,54 @@ const TD = s => `<td style="border:1px solid #111;padding:8px 20px;">${s}</td>`;
    ========================================================================================== */
 const QUESTIONS = [
   /* ===================== MODULE 1 ===================== */
-  /* Q1 ← gốc 132 */
-  { id: 1, module: 1, domain: "Advanced Math", type: "gridin",
-    questionText: EQ(F('1','<i>x</i> − 1') + ` = ` + F('<i>x</i> − 4','−<i>x</i> + 0.25')) + `What is one of the solutions to the given equation?`,
-    image: null, correctKey: ["1.5", "3/2", "2.5", "5/2"] },
+  /* Q1 ← gốc 151 */
+  { id: 1, module: 1, domain: "Geometry and Trigonometry", type: "mcq",
+    questionText: `A cube has an edge length of 31 inches. What is the volume, in cubic inches, of the cube?`,
+    image: null,
+    options: [`124`, `961`, `5,766`, `29,791`],
+    correctKey: "D" },
 
-  /* Q2 ← gốc 135 */
-  { id: 2, module: 1, domain: "Problem-Solving and Data Analysis", type: "mcq",
+  /* Q2 ← gốc 176 */
+  { id: 2, module: 1, domain: "Geometry and Trigonometry", type: "mcq",
+    questionText: `In triangle <i>XYZ</i>, two of the angles have the same measure. If the measure of angle <i>X</i> is 158 degrees and the measure of angle <i>Y</i> is 11 degrees, what is the measure of angle <i>Z</i>?`,
+    image: null,
+    options: [`180 degrees`, `158 degrees`, `22 degrees`, `11 degrees`],
+    correctKey: "D" },
+
+  /* Q3 ← gốc 160 */
+  { id: 3, module: 1, domain: "Advanced Math", type: "mcq",
+    questionText: `A function <i>p</i> estimates that there were 2,500 whales in a population in 1998. Each year from 1998 to 2010, the function estimates that the number of whales in this population increased by 7% of the number of whales in the population the previous year. Which equation defines this function, where <i>p</i>(<i>x</i>) is the estimated number of whales in the population <i>x</i> years after 1998?`,
+    image: null,
+    options: [`<i>p</i>(<i>x</i>) = 2,500(7)<sup><i>x</i></sup>`, `<i>p</i>(<i>x</i>) = 2,500(1.93)<sup><i>x</i></sup>`, `<i>p</i>(<i>x</i>) = 2,500(1.07)<sup><i>x</i></sup>`, `<i>p</i>(<i>x</i>) = 2,500(0.93)<sup><i>x</i></sup>`],
+    correctKey: "C" },
+
+  /* Q4 ← gốc 147 */
+  { id: 4, module: 1, domain: "Algebra", type: "mcq",
+    questionText: EQ(`<i>r</i> + <i>g</i> &lt; 39`) + `For which of the following tables are all the values of <i>r</i> and their corresponding values of <i>g</i> solutions to the given inequality?`,
+    image: null,
+    options: [`<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;"><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>r</i></td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>g</i></td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">0</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">34</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">2</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">36</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">4</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">38</td></tr></table>`, `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;"><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>r</i></td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>g</i></td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">0</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">34</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">2</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">38</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">4</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">36</td></tr></table>`, `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;"><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>r</i></td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>g</i></td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">0</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">36</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">2</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">38</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">4</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">34</td></tr></table>`, `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;"><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>r</i></td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>g</i></td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">0</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">38</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">2</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">36</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">4</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">34</td></tr></table>`],
+    correctKey: "D" },
+
+  /* Q5 ← gốc 135 */
+  { id: 5, module: 1, domain: "Problem-Solving and Data Analysis", type: "mcq",
     questionText: `To install flooring, a contractor charges 5.75 dollars per square foot plus 100 dollars for labor. If a kitchen floor is a square with the side length of 17 feet, what is the total, in dollars, that the contractor charges to install flooring in this kitchen?`,
     image: null,
     options: [`197.75`, `394.75`, `1,705.75`, `1,761.75`],
     correctKey: "D" },
 
-  /* Q3 ← gốc 136 */
-  { id: 3, module: 1, domain: "Advanced Math", type: "mcq",
-    questionText: `An entomologist is studying the growth rate of various insect species in a controlled environment. For one particular species being studied in the controlled environment, an exponential model predicts that a population with an initial measurement of 8 organisms will increase by 160% every 22 days. Which equation represents this model, where <i>y</i> is the predicted number of organisms in the population <i>x</i> days since the initial measurement?`,
-    image: null,
-    options: [`<i>y</i> = 8(1.60)<sup>22<i>x</i></sup>`, `<i>y</i> = 8(2.60)<sup>22<i>x</i></sup>`, `<i>y</i> = 8(1.60)<span style="display:inline-block;vertical-align:.55em;text-align:center;font-size:.62em;line-height:1.05;margin-left:1px;"><span style="display:block;border-bottom:1px solid currentColor;padding:0 2px;"><i>x</i></span><span style="display:block;">22</span></span>`, `<i>y</i> = 8(2.60)<span style="display:inline-block;vertical-align:.55em;text-align:center;font-size:.62em;line-height:1.05;margin-left:1px;"><span style="display:block;border-bottom:1px solid currentColor;padding:0 2px;"><i>x</i></span><span style="display:block;">22</span></span>`],
-    correctKey: "D" },
-
-  /* Q4 ← gốc 139 */
-  { id: 4, module: 1, domain: "Advanced Math", type: "mcq",
+  /* Q6 ← gốc 139 */
+  { id: 6, module: 1, domain: "Advanced Math", type: "mcq",
     questionText: EQ(`<i>y</i> = 9<i>x</i><sup>2</sup> − 54<i>x</i> + 45`) + `The given equation represents a parabola in the <i>xy</i>-plane. Which of the following equations that represent the same parabola displays the <i>x</i>-intercepts as constants or coefficients?`,
     image: null,
     options: [`<i>y</i> = 9(<i>x</i> − 1)(<i>x</i> − 5)`, `<i>y</i> = 9(<i>x</i> − 3)<sup>2</sup> − 36`, `<i>y</i> = 9<i>x</i>(<i>x</i> − 6) + 45`, `<i>y</i> = 9(<i>x</i><sup>2</sup> − 6<i>x</i>) + 45`],
     correctKey: "A" },
 
-  /* Q5 ← gốc 140 */
-  { id: 5, module: 1, domain: "Algebra", type: "mcq",
-    questionText: `When several resistors are connected in series in a circuit, the total resistance of the circuit is the sum of the resistances of these resistors. A certain circuit consists of 8 resistors connected in series, where the resistance of each resistor is positive. The total resistance of 3 resistors in this circuit is 80 ohms. Each of the other 5 resistors in this circuit has a resistance of at most 20 ohms. The total resistance of this circuit is <i>x</i> ohms. Which inequality best represents this situation?`,
-    image: null,
-    options: [`0 &lt; <i>x</i> ≤ 180`, `80 &lt; <i>x</i> ≤ 100`, `80 &lt; <i>x</i> ≤ 180`, `<i>x</i> ≥ 100`],
-    correctKey: "C" },
-
-  /* Q6 ← gốc 143 */
-  { id: 6, module: 1, domain: "Advanced Math", type: "gridin",
-    questionText: `If <i>x</i> = <span style="white-space:nowrap;"><sup style="font-size:.6em;margin-right:-3px;">2<i>n</i></sup>${SQ('2<i>x</i><sup><i>n</i></sup> + 35')}</span>, where <i>n</i> is a positive integer constant, what is the value of <i>x</i><sup><i>n</i></sup>?`,
-    image: null, correctKey: "7" },
-
-  /* Q7 ← gốc 147 */
+  /* Q7 ← gốc 157 */
   { id: 7, module: 1, domain: "Algebra", type: "mcq",
-    questionText: EQ(`<i>r</i> + <i>g</i> &lt; 39`) + `For which of the following tables are all the values of <i>r</i> and their corresponding values of <i>g</i> solutions to the given inequality?`,
+    questionText: EQ(`<i>v</i> = −` + F('<i>w</i>','133<i>x</i>')) + `The given equation relates the distinct numbers <i>v</i>, <i>w</i>, and <i>x</i>. Which equation correctly expresses <i>w</i> in terms of <i>v</i> and <i>x</i>?`,
     image: null,
-    options: [`<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;"><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>r</i></td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>g</i></td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">0</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">34</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">2</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">36</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">4</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">38</td></tr></table>`, `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;"><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>r</i></td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>g</i></td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">0</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">34</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">2</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">38</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">4</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">36</td></tr></table>`, `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;"><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>r</i></td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>g</i></td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">0</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">36</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">2</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">38</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">4</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">34</td></tr></table>`, `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;"><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>r</i></td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;"><i>g</i></td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">0</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">38</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">2</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">36</td></tr><tr><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">4</td><td style="border:1px solid #111;padding:6px 16px;min-width:34px;">34</td></tr></table>`],
-    correctKey: "D" },
+    options: [`<i>w</i> = −133<i>vx</i>`, `<i>w</i> = −` + F('133<i>v</i>','<i>x</i>'), `<i>w</i> = −` + F('<i>v</i>','133<i>x</i>'), `<i>w</i> = <i>v</i> + 133<i>x</i>`],
+    correctKey: "A" },
 
   /* Q8 ← gốc 149 */
   { id: 8, module: 1, domain: "Advanced Math", type: "mcq",
@@ -727,27 +734,67 @@ const QUESTIONS = [
     options: [`<i>y</i> = 3<sup><i>x</i></sup> + 7`, `<i>y</i> = 3<sup>−<i>x</i></sup> + 7`, `<i>y</i> = 3<sup><i>x</i></sup> + 8`, `<i>y</i> = 3<sup>−<i>x</i></sup> + 8`],
     correctKey: "A" },
 
-  /* Q9 ← gốc 154 */
-  { id: 9, module: 1, domain: "Advanced Math", type: "mcq",
+  /* Q9 ← gốc 169 */
+  { id: 9, module: 1, domain: "Algebra", type: "mcq",
+    questionText: `In the relationship between <i>x</i> and <i>y</i>, each increase of 1 in the value of <i>x</i> decreases the value of <i>y</i> by ${F('4','5')}. When <i>x</i> = −5, <i>y</i> = −1. Which equation represents this relationship?`,
+    image: null,
+    options: [`<i>y</i> = −${F('4','5')}<i>x</i> − 5`, `<i>y</i> = −${F('4','5')}<i>x</i> + 5`, `<i>y</i> = ${F('4','5')}<i>x</i> − 5`, `<i>y</i> = ${F('4','5')}<i>x</i> + 5`],
+    correctKey: "A" },
+
+  /* Q10 ← gốc 136 */
+  { id: 10, module: 1, domain: "Advanced Math", type: "mcq",
+    questionText: `An entomologist is studying the growth rate of various insect species in a controlled environment. For one particular species being studied in the controlled environment, an exponential model predicts that a population with an initial measurement of 8 organisms will increase by 160% every 22 days. Which equation represents this model, where <i>y</i> is the predicted number of organisms in the population <i>x</i> days since the initial measurement?`,
+    image: null,
+    options: [`<i>y</i> = 8(1.60)<sup>22<i>x</i></sup>`, `<i>y</i> = 8(2.60)<sup>22<i>x</i></sup>`, `<i>y</i> = 8(1.60)<span style="display:inline-block;vertical-align:.55em;text-align:center;font-size:.62em;line-height:1.05;margin-left:1px;"><span style="display:block;border-bottom:1px solid currentColor;padding:0 2px;"><i>x</i></span><span style="display:block;">22</span></span>`, `<i>y</i> = 8(2.60)<span style="display:inline-block;vertical-align:.55em;text-align:center;font-size:.62em;line-height:1.05;margin-left:1px;"><span style="display:block;border-bottom:1px solid currentColor;padding:0 2px;"><i>x</i></span><span style="display:block;">22</span></span>`],
+    correctKey: "D" },
+
+  /* Q11 ← gốc 154 */
+  { id: 11, module: 1, domain: "Advanced Math", type: "mcq",
     questionText: `<svg viewBox="0 0 400 474" width="400" style="display:block;margin:4px auto 16px;max-width:100%;height:auto;font-family:'Minion Pro','Minion','Crimson Pro',Georgia,serif;" xmlns="http://www.w3.org/2000/svg"><g stroke="#222" stroke-width="0.9"><line x1="40.0" y1="36.0" x2="40.0" y2="452.0"/><line x1="60.0" y1="36.0" x2="60.0" y2="452.0"/><line x1="80.0" y1="36.0" x2="80.0" y2="452.0"/><line x1="100.0" y1="36.0" x2="100.0" y2="452.0"/><line x1="120.0" y1="36.0" x2="120.0" y2="452.0"/><line x1="140.0" y1="36.0" x2="140.0" y2="452.0"/><line x1="160.0" y1="36.0" x2="160.0" y2="452.0"/><line x1="180.0" y1="36.0" x2="180.0" y2="452.0"/><line x1="200.0" y1="36.0" x2="200.0" y2="452.0"/><line x1="220.0" y1="36.0" x2="220.0" y2="452.0"/><line x1="240.0" y1="36.0" x2="240.0" y2="452.0"/><line x1="260.0" y1="36.0" x2="260.0" y2="452.0"/><line x1="280.0" y1="36.0" x2="280.0" y2="452.0"/><line x1="300.0" y1="36.0" x2="300.0" y2="452.0"/><line x1="320.0" y1="36.0" x2="320.0" y2="452.0"/><line x1="340.0" y1="36.0" x2="340.0" y2="452.0"/><line x1="360.0" y1="36.0" x2="360.0" y2="452.0"/><line x1="32.0" y1="444.0" x2="368.0" y2="444.0"/><line x1="32.0" y1="424.0" x2="368.0" y2="424.0"/><line x1="32.0" y1="404.0" x2="368.0" y2="404.0"/><line x1="32.0" y1="384.0" x2="368.0" y2="384.0"/><line x1="32.0" y1="364.0" x2="368.0" y2="364.0"/><line x1="32.0" y1="344.0" x2="368.0" y2="344.0"/><line x1="32.0" y1="324.0" x2="368.0" y2="324.0"/><line x1="32.0" y1="304.0" x2="368.0" y2="304.0"/><line x1="32.0" y1="284.0" x2="368.0" y2="284.0"/><line x1="32.0" y1="264.0" x2="368.0" y2="264.0"/><line x1="32.0" y1="244.0" x2="368.0" y2="244.0"/><line x1="32.0" y1="224.0" x2="368.0" y2="224.0"/><line x1="32.0" y1="204.0" x2="368.0" y2="204.0"/><line x1="32.0" y1="184.0" x2="368.0" y2="184.0"/><line x1="32.0" y1="164.0" x2="368.0" y2="164.0"/><line x1="32.0" y1="144.0" x2="368.0" y2="144.0"/><line x1="32.0" y1="124.0" x2="368.0" y2="124.0"/><line x1="32.0" y1="104.0" x2="368.0" y2="104.0"/><line x1="32.0" y1="84.0" x2="368.0" y2="84.0"/><line x1="32.0" y1="64.0" x2="368.0" y2="64.0"/><line x1="32.0" y1="44.0" x2="368.0" y2="44.0"/></g><line x1="32.0" y1="124.0" x2="378.0" y2="124.0" stroke="#000" stroke-width="1.5"/><line x1="200.0" y1="452.0" x2="200.0" y2="26.0" stroke="#000" stroke-width="1.5"/><path d="M380.0,124.0 l-9,-4 l0,8 z" fill="#000"/><path d="M200.0,24.0 l-4,9 l8,0 z" fill="#000"/><polyline points="68.6,28.8 68.9,29.9 69.2,31.0 69.5,32.1 69.8,33.2 70.1,34.3 70.4,35.4 70.7,36.5 71.0,37.6 71.3,38.7 71.6,39.8 71.9,40.8 72.2,41.9 72.5,43.0 72.8,44.0 73.1,45.1 73.4,46.2 73.7,47.2 74.1,48.3 74.4,49.3 74.7,50.4 75.0,51.4 75.3,52.4 75.6,53.5 75.9,54.5 76.2,55.5 76.5,56.5 76.8,57.5 77.1,58.6 77.4,59.6 77.7,60.6 78.0,61.6 78.3,62.6 78.6,63.6 78.9,64.6 79.2,65.5 79.5,66.5 79.8,67.5 80.1,68.5 80.5,69.4 80.8,70.4 81.1,71.4 81.4,72.3 81.7,73.3 82.0,74.2 82.3,75.2 82.6,76.1 82.9,77.1 83.2,78.0 83.5,79.0 83.8,79.9 84.1,80.8 84.4,81.7 84.7,82.7 85.0,83.6 85.3,84.5 85.6,85.4 85.9,86.3 86.2,87.2 86.5,88.1 86.9,89.0 87.2,89.9 87.5,90.8 87.8,91.7 88.1,92.5 88.4,93.4 88.7,94.3 89.0,95.1 89.3,96.0 89.6,96.9 89.9,97.7 90.2,98.6 90.5,99.4 90.8,100.3 91.1,101.1 91.4,102.0 91.7,102.8 92.0,103.6 92.3,104.4 92.6,105.3 92.9,106.1 93.3,106.9 93.6,107.7 93.9,108.5 94.2,109.3 94.5,110.1 94.8,110.9 95.1,111.7 95.4,112.5 95.7,113.3 96.0,114.1 96.3,114.9 96.6,115.6 96.9,116.4 97.2,117.2 97.5,117.9 97.8,118.7 98.1,119.4 98.4,120.2 98.7,120.9 99.0,121.7 99.3,122.4 99.7,123.2 100.0,123.9 100.3,124.6 100.6,125.4 100.9,126.1 101.2,126.8 101.5,127.5 101.8,128.2 102.1,128.9 102.4,129.6 102.7,130.3 103.0,131.0 103.3,131.7 103.6,132.4 103.9,133.1 104.2,133.8 104.5,134.5 104.8,135.1 105.1,135.8 105.4,136.5 105.7,137.1 106.1,137.8 106.4,138.5 106.7,139.1 107.0,139.8 107.3,140.4 107.6,141.0 107.9,141.7 108.2,142.3 108.5,142.9 108.8,143.6 109.1,144.2 109.4,144.8 109.7,145.4 110.0,146.0 110.3,146.6 110.6,147.2 110.9,147.8 111.2,148.4 111.5,149.0 111.8,149.6 112.2,150.2 112.5,150.8 112.8,151.4 113.1,151.9 113.4,152.5 113.7,153.1 114.0,153.6 114.3,154.2 114.6,154.8 114.9,155.3 115.2,155.9 115.5,156.4 115.8,156.9 116.1,157.5 116.4,158.0 116.7,158.5 117.0,159.1 117.3,159.6 117.6,160.1 117.9,160.6 118.2,161.1 118.6,161.6 118.9,162.1 119.2,162.6 119.5,163.1 119.8,163.6 120.1,164.1 120.4,164.6 120.7,165.1 121.0,165.6 121.3,166.0 121.6,166.5 121.9,167.0 122.2,167.4 122.5,167.9 122.8,168.3 123.1,168.8 123.4,169.2 123.7,169.7 124.0,170.1 124.3,170.6 124.6,171.0 125.0,171.4 125.3,171.9 125.6,172.3 125.9,172.7 126.2,173.1 126.5,173.5 126.8,173.9 127.1,174.3 127.4,174.7 127.7,175.1 128.0,175.5 128.3,175.9 128.6,176.3 128.9,176.7 129.2,177.0 129.5,177.4 129.8,177.8 130.1,178.2 130.4,178.5 130.7,178.9 131.0,179.2 131.4,179.6 131.7,179.9 132.0,180.3 132.3,180.6 132.6,181.0 132.9,181.3 133.2,181.6 133.5,181.9 133.8,182.3 134.1,182.6 134.4,182.9 134.7,183.2 135.0,183.5 135.3,183.8 135.6,184.1 135.9,184.4 136.2,184.7 136.5,185.0 136.8,185.3 137.1,185.6 137.4,185.8 137.8,186.1 138.1,186.4 138.4,186.6 138.7,186.9 139.0,187.2 139.3,187.4 139.6,187.7 139.9,187.9 140.2,188.2 140.5,188.4 140.8,188.6 141.1,188.9 141.4,189.1 141.7,189.3 142.0,189.5 142.3,189.8 142.6,190.0 142.9,190.2 143.2,190.4 143.5,190.6 143.8,190.8 144.2,191.0 144.5,191.2 144.8,191.4 145.1,191.5 145.4,191.7 145.7,191.9 146.0,192.1 146.3,192.2 146.6,192.4 146.9,192.6 147.2,192.7 147.5,192.9 147.8,193.0 148.1,193.2 148.4,193.3 148.7,193.5 149.0,193.6 149.3,193.7 149.6,193.9 149.9,194.0 150.2,194.1 150.6,194.2 150.9,194.3 151.2,194.4 151.5,194.5 151.8,194.6 152.1,194.7 152.4,194.8 152.7,194.9 153.0,195.0 153.3,195.1 153.6,195.2 153.9,195.3 154.2,195.3 154.5,195.4 154.8,195.5 155.1,195.5 155.4,195.6 155.7,195.6 156.0,195.7 156.3,195.7 156.6,195.8 157.0,195.8 157.3,195.8 157.6,195.9 157.9,195.9 158.2,195.9 158.5,196.0 158.8,196.0 159.1,196.0 159.4,196.0 159.7,196.0 160.0,196.0 160.3,196.0 160.6,196.0 160.9,196.0 161.2,196.0 161.5,196.0 161.8,195.9 162.1,195.9 162.4,195.9 162.7,195.8 163.0,195.8 163.4,195.8 163.7,195.7 164.0,195.7 164.3,195.6 164.6,195.6 164.9,195.5 165.2,195.5 165.5,195.4 165.8,195.3 166.1,195.3 166.4,195.2 166.7,195.1 167.0,195.0 167.3,194.9 167.6,194.8 167.9,194.7 168.2,194.6 168.5,194.5 168.8,194.4 169.1,194.3 169.4,194.2 169.8,194.1 170.1,194.0 170.4,193.9 170.7,193.7 171.0,193.6 171.3,193.5 171.6,193.3 171.9,193.2 172.2,193.0 172.5,192.9 172.8,192.7 173.1,192.6 173.4,192.4 173.7,192.2 174.0,192.1 174.3,191.9 174.6,191.7 174.9,191.5 175.2,191.4 175.5,191.2 175.8,191.0 176.2,190.8 176.5,190.6 176.8,190.4 177.1,190.2 177.4,190.0 177.7,189.8 178.0,189.5 178.3,189.3 178.6,189.1 178.9,188.9 179.2,188.6 179.5,188.4 179.8,188.2 180.1,187.9 180.4,187.7 180.7,187.4 181.0,187.2 181.3,186.9 181.6,186.6 181.9,186.4 182.2,186.1 182.6,185.8 182.9,185.5 183.2,185.3 183.5,185.0 183.8,184.7 184.1,184.4 184.4,184.1 184.7,183.8 185.0,183.5 185.3,183.2 185.6,182.9 185.9,182.6 186.2,182.3 186.5,181.9 186.8,181.6 187.1,181.3 187.4,181.0 187.7,180.6 188.0,180.3 188.3,179.9 188.6,179.6 189.0,179.2 189.3,178.9 189.6,178.5 189.9,178.2 190.2,177.8 190.5,177.4 190.8,177.0 191.1,176.7 191.4,176.3 191.7,175.9 192.0,175.5 192.3,175.1 192.6,174.7 192.9,174.3 193.2,173.9 193.5,173.5 193.8,173.1 194.1,172.7 194.4,172.3 194.7,171.9 195.0,171.4 195.4,171.0 195.7,170.6 196.0,170.1 196.3,169.7 196.6,169.2 196.9,168.8 197.2,168.3 197.5,167.9 197.8,167.4 198.1,167.0 198.4,166.5 198.7,166.0 199.0,165.6 199.3,165.1 199.6,164.6 199.9,164.1 200.2,163.6 200.5,163.1 200.8,162.6 201.1,162.1 201.4,161.6 201.8,161.1 202.1,160.6 202.4,160.1 202.7,159.6 203.0,159.1 203.3,158.5 203.6,158.0 203.9,157.5 204.2,156.9 204.5,156.4 204.8,155.9 205.1,155.3 205.4,154.8 205.7,154.2 206.0,153.6 206.3,153.1 206.6,152.5 206.9,151.9 207.2,151.4 207.5,150.8 207.8,150.2 208.2,149.6 208.5,149.0 208.8,148.4 209.1,147.8 209.4,147.2 209.7,146.6 210.0,146.0 210.3,145.4 210.6,144.8 210.9,144.2 211.2,143.6 211.5,142.9 211.8,142.3 212.1,141.7 212.4,141.0 212.7,140.4 213.0,139.8 213.3,139.1 213.6,138.5 213.9,137.8 214.3,137.1 214.6,136.5 214.9,135.8 215.2,135.1 215.5,134.5 215.8,133.8 216.1,133.1 216.4,132.4 216.7,131.7 217.0,131.0 217.3,130.3 217.6,129.6 217.9,128.9 218.2,128.2 218.5,127.5 218.8,126.8 219.1,126.1 219.4,125.4 219.7,124.6 220.0,123.9 220.3,123.2 220.7,122.4 221.0,121.7 221.3,120.9 221.6,120.2 221.9,119.4 222.2,118.7 222.5,117.9 222.8,117.2 223.1,116.4 223.4,115.6 223.7,114.9 224.0,114.1 224.3,113.3 224.6,112.5 224.9,111.7 225.2,110.9 225.5,110.1 225.8,109.3 226.1,108.5 226.4,107.7 226.7,106.9 227.1,106.1 227.4,105.3 227.7,104.4 228.0,103.6 228.3,102.8 228.6,102.0 228.9,101.1 229.2,100.3 229.5,99.4 229.8,98.6 230.1,97.7 230.4,96.9 230.7,96.0 231.0,95.1 231.3,94.3 231.6,93.4 231.9,92.5 232.2,91.7 232.5,90.8 232.8,89.9 233.1,89.0 233.5,88.1 233.8,87.2 234.1,86.3 234.4,85.4 234.7,84.5 235.0,83.6 235.3,82.7 235.6,81.7 235.9,80.8 236.2,79.9 236.5,79.0 236.8,78.0 237.1,77.1 237.4,76.1 237.7,75.2 238.0,74.2 238.3,73.3 238.6,72.3 238.9,71.4 239.2,70.4 239.5,69.4 239.9,68.5 240.2,67.5 240.5,66.5 240.8,65.5 241.1,64.6 241.4,63.6 241.7,62.6 242.0,61.6 242.3,60.6 242.6,59.6 242.9,58.6 243.2,57.5 243.5,56.5 243.8,55.5 244.1,54.5 244.4,53.5 244.7,52.4 245.0,51.4 245.3,50.4 245.6,49.3 245.9,48.3 246.3,47.2 246.6,46.2 246.9,45.1 247.2,44.0 247.5,43.0 247.8,41.9 248.1,40.8 248.4,39.8 248.7,38.7 249.0,37.6 249.3,36.5 249.6,35.4 249.9,34.3 250.2,33.2 250.5,32.1 250.8,31.0 251.1,29.9 251.4,28.8" fill="none" stroke="#000" stroke-width="3"/><rect x="31.0" y="129.0" width="18" height="15" fill="#fff"/><text x="40.0" y="140.0" text-anchor="middle" font-size="13">−8</text><rect x="71.0" y="129.0" width="18" height="15" fill="#fff"/><text x="80.0" y="140.0" text-anchor="middle" font-size="13">−6</text><rect x="111.0" y="129.0" width="18" height="15" fill="#fff"/><text x="120.0" y="140.0" text-anchor="middle" font-size="13">−4</text><rect x="151.0" y="129.0" width="18" height="15" fill="#fff"/><text x="160.0" y="140.0" text-anchor="middle" font-size="13">−2</text><rect x="234.5" y="129.0" width="11" height="15" fill="#fff"/><text x="240.0" y="140.0" text-anchor="middle" font-size="13">2</text><rect x="274.5" y="129.0" width="11" height="15" fill="#fff"/><text x="280.0" y="140.0" text-anchor="middle" font-size="13">4</text><rect x="314.5" y="129.0" width="11" height="15" fill="#fff"/><text x="320.0" y="140.0" text-anchor="middle" font-size="13">6</text><rect x="354.5" y="129.0" width="11" height="15" fill="#fff"/><text x="360.0" y="140.0" text-anchor="middle" font-size="13">8</text><rect x="177.0" y="38.0" width="18" height="15" fill="#fff"/><text x="195.0" y="49.0" text-anchor="end" font-size="13">10</text><rect x="184.0" y="78.0" width="11" height="15" fill="#fff"/><text x="195.0" y="89.0" text-anchor="end" font-size="13">5</text><rect x="177.0" y="158.0" width="18" height="15" fill="#fff"/><text x="195.0" y="169.0" text-anchor="end" font-size="13">−5</text><rect x="170.0" y="198.0" width="25" height="15" fill="#fff"/><text x="195.0" y="209.0" text-anchor="end" font-size="13">−10</text><rect x="170.0" y="238.0" width="25" height="15" fill="#fff"/><text x="195.0" y="249.0" text-anchor="end" font-size="13">−15</text><rect x="170.0" y="278.0" width="25" height="15" fill="#fff"/><text x="195.0" y="289.0" text-anchor="end" font-size="13">−20</text><rect x="170.0" y="318.0" width="25" height="15" fill="#fff"/><text x="195.0" y="329.0" text-anchor="end" font-size="13">−25</text><rect x="170.0" y="358.0" width="25" height="15" fill="#fff"/><text x="195.0" y="369.0" text-anchor="end" font-size="13">−30</text><rect x="170.0" y="398.0" width="25" height="15" fill="#fff"/><text x="195.0" y="409.0" text-anchor="end" font-size="13">−35</text><rect x="170.0" y="438.0" width="25" height="15" fill="#fff"/><text x="195.0" y="449.0" text-anchor="end" font-size="13">−40</text><rect x="184.0" y="128.0" width="11" height="15" fill="#fff"/><text x="195.0" y="139.0" text-anchor="end" font-size="13" font-style="italic">O</text><text x="390.0" y="129.0" text-anchor="middle" font-size="15" font-style="italic">x</text><text x="200.0" y="19.0" text-anchor="middle" font-size="15" font-style="italic">y</text></svg>What is an equation of the graph shown, where <i>y</i> = <i>f</i>(<i>x</i>)?`,
     image: null,
     options: [`<i>f</i>(<i>x</i>) = <i>x</i><sup>2</sup> − 5`, `<i>f</i>(<i>x</i>) = <i>x</i><sup>2</sup> − 4<i>x</i> − 5`, `<i>f</i>(<i>x</i>) = <i>x</i><sup>2</sup> + 4<i>x</i> − 5`, `<i>f</i>(<i>x</i>) = 2<i>x</i><sup>2</sup> + 4<i>x</i> − 5`],
     correctKey: "C" },
 
-  /* Q10 ← gốc 160 */
-  { id: 10, module: 1, domain: "Advanced Math", type: "mcq",
-    questionText: `A function <i>p</i> estimates that there were 2,500 whales in a population in 1998. Each year from 1998 to 2010, the function estimates that the number of whales in this population increased by 7% of the number of whales in the population the previous year. Which equation defines this function, where <i>p</i>(<i>x</i>) is the estimated number of whales in the population <i>x</i> years after 1998?`,
+  /* Q12 ← gốc 172 */
+  { id: 12, module: 1, domain: "Advanced Math", type: "mcq",
+    questionText: EQ(`<i>x</i>(<i>x</i> + 11) − 15 = 0`) + `What are the solutions to the given equation?`,
     image: null,
-    options: [`<i>p</i>(<i>x</i>) = 2,500(7)<sup><i>x</i></sup>`, `<i>p</i>(<i>x</i>) = 2,500(1.93)<sup><i>x</i></sup>`, `<i>p</i>(<i>x</i>) = 2,500(1.07)<sup><i>x</i></sup>`, `<i>p</i>(<i>x</i>) = 2,500(0.93)<sup><i>x</i></sup>`],
+    options: [`<i>x</i> = ${F('11 ± ' + SQ('61'), '2')}`, `<i>x</i> = ${F('11 ± ' + SQ('181'), '2')}`, `<i>x</i> = ${F('−11 ± ' + SQ('61'), '2')}`, `<i>x</i> = ${F('−11 ± ' + SQ('181'), '2')}`],
+    correctKey: "D" },
+
+  /* Q13 ← gốc 171 */
+  { id: 13, module: 1, domain: "Geometry and Trigonometry", type: "mcq",
+    questionText: `<svg viewBox="0 0 440 230" width="440" style="display:block;margin:4px auto 0;max-width:100%;height:auto;font-family:'Minion Pro','Minion','Crimson Pro',Georgia,serif;" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="2"><path d="M40,200 L125,30 L400,200 Z"/><line x1="80.8" y1="118.4" x2="268.0" y2="118.4"/></g><text x="117" y="22" text-anchor="middle" font-size="18" font-style="italic">Y</text><text x="28" y="218" text-anchor="middle" font-size="18" font-style="italic">X</text><text x="410" y="222" text-anchor="middle" font-size="18" font-style="italic">Z</text><text x="66.8" y="120.4" text-anchor="middle" font-size="18" font-style="italic">V</text><text x="282.0" y="120.4" text-anchor="middle" font-size="18" font-style="italic">W</text><text x="88.9" y="76.2" text-anchor="middle" font-size="18" font-style="italic">a</text><text x="46.4" y="161.2" text-anchor="middle" font-size="18" font-style="italic">c</text><text x="206.5" y="64.2" text-anchor="middle" font-size="18" font-style="italic">b</text><text x="346.0" y="149.2" text-anchor="middle" font-size="18" font-style="italic">d</text><text x="174.4" y="109.4" text-anchor="middle" font-size="16">35</text><text x="220.0" y="191" text-anchor="middle" font-size="16">55</text></svg><div style="text-align:center;margin:6px 0 16px;">Note: Figure not drawn to scale.</div>`
+      + `In triangle <i>XYZ</i>, a line segment <i>VW</i> is parallel to <i>XZ</i>, with <i>VW</i> = 35 and <i>XZ</i> = 55, as shown in the figure. If <i>YV</i> = <i>a</i>, <i>VX</i> = <i>c</i>, <i>YW</i> = <i>b</i>, and <i>WZ</i> = <i>d</i>, and we are given ${F('<i>a</i>','<i>c</i>')} = <i>k</i> and ${F('<i>b</i>','<i>d</i>')} = <i>k</i>, what is the value of <i>k</i>?`,
+    image: null,
+    options: [F('4','7'), F('7','4'), F('7','11'), F('11','7')],
+    correctKey: "B" },
+
+  /* Q14 ← gốc 156 */
+  { id: 14, module: 1, domain: "Problem-Solving and Data Analysis", type: "mcq",
+    questionText: `At a nature preserve, a wildlife biologist counted bald eagles from an observation deck at the same time each day for 21 days.`
+      + `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;margin:6px auto 18px;"><tr><td style="border:1px solid #111;padding:10px 26px;">Number of bald eagles</td><td style="border:1px solid #111;padding:10px 26px;">Number of days</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">0</td><td style="border:1px solid #111;padding:10px 26px;">1</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">1</td><td style="border:1px solid #111;padding:10px 26px;">3</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">2</td><td style="border:1px solid #111;padding:10px 26px;">4</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">3</td><td style="border:1px solid #111;padding:10px 26px;">5</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">4</td><td style="border:1px solid #111;padding:10px 26px;">4</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">5</td><td style="border:1px solid #111;padding:10px 26px;">3</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">19</td><td style="border:1px solid #111;padding:10px 26px;">1</td></tr></table>`
+      + `The table summarizes the resulting data set, data set A. The data value 19 was recorded in error and is removed from data set A to create data set B, which consists of the remaining 20 data values. Which statement best compares the median of data set A and the median of data set B?`,
+    image: null,
+    options: [`The median of data set B is less than the median of data set A.`, `The median of data set B is equal to the median of data set A.`, `The median of data set B is greater than the median of data set A.`, `There is not enough information to compare the medians of the two data sets.`],
+    correctKey: "B" },
+
+  /* Q15 ← gốc 163 */
+  { id: 15, module: 1, domain: "Algebra", type: "mcq",
+    questionText: `If |14 − 2<i>x</i>| = 42, which of the following is a value of 7 − <i>x</i>?`,
+    image: null,
+    options: [`0`, `7`, `21`, `28`],
     correctKey: "C" },
 
-  /* Q11 ← gốc 164 */
-  { id: 11, module: 1, domain: "Advanced Math", type: "gridin",
-    questionText: `The function <i>f</i> is defined by <i>f</i>(<i>x</i>) = ${F('15','14 − <i>x</i>')}. What is the value of <i>f</i>(<i>x</i>) when <i>x</i> = 9?`,
-    image: null, correctKey: "3" },
+  /* Q16 ← gốc 140 */
+  { id: 16, module: 1, domain: "Algebra", type: "mcq",
+    questionText: `When several resistors are connected in series in a circuit, the total resistance of the circuit is the sum of the resistances of these resistors. A certain circuit consists of 8 resistors connected in series, where the resistance of each resistor is positive. The total resistance of 3 resistors in this circuit is 80 ohms. Each of the other 5 resistors in this circuit has a resistance of at most 20 ohms. The total resistance of this circuit is <i>x</i> ohms. Which inequality best represents this situation?`,
+    image: null,
+    options: [`0 &lt; <i>x</i> ≤ 180`, `80 &lt; <i>x</i> ≤ 100`, `80 &lt; <i>x</i> ≤ 180`, `<i>x</i> ≥ 100`],
+    correctKey: "C" },
 
-  /* Q12 ← gốc 168 */
-  { id: 12, module: 1, domain: "Problem-Solving and Data Analysis", type: "mcq",
+  /* Q17 ← gốc 168 */
+  { id: 17, module: 1, domain: "Problem-Solving and Data Analysis", type: "mcq",
     questionText: `The maximum temperature on April 1, in degrees Fahrenheit, was recorded each year at a certain weather station for 11 years. The histogram summarizes the recorded data set.`
       + `<svg viewBox="0 0 480 312" width="480" style="display:block;margin:6px auto 16px;max-width:100%;height:auto;font-family:'Minion Pro','Minion','Crimson Pro',Georgia,serif;" xmlns="http://www.w3.org/2000/svg"><line x1="95" y1="165" x2="441" y2="165" stroke="#555" stroke-width="1"/><line x1="95" y1="120" x2="441" y2="120" stroke="#555" stroke-width="1"/><line x1="95" y1="75" x2="441" y2="75" stroke="#555" stroke-width="1"/><line x1="95" y1="30" x2="441" y2="30" stroke="#555" stroke-width="1"/><rect x="100" y="165" width="32" height="45" fill="#666" stroke="#222" stroke-width="1"/><rect x="142" y="120" width="32" height="90" fill="#666" stroke="#222" stroke-width="1"/><rect x="184" y="75" width="32" height="135" fill="#666" stroke="#222" stroke-width="1"/><rect x="226" y="75" width="32" height="135" fill="#666" stroke="#222" stroke-width="1"/><rect x="268" y="165" width="32" height="45" fill="#666" stroke="#222" stroke-width="1"/><rect x="394" y="165" width="32" height="45" fill="#666" stroke="#222" stroke-width="1"/><line x1="95" y1="24" x2="95" y2="210" stroke="#000" stroke-width="1.3"/><line x1="95" y1="210" x2="441" y2="210" stroke="#000" stroke-width="1.3"/><line x1="89" y1="210" x2="95" y2="210" stroke="#000"/><text x="85" y="215" text-anchor="end" font-size="15">0</text><line x1="89" y1="165" x2="95" y2="165" stroke="#000"/><text x="85" y="170" text-anchor="end" font-size="15">1</text><line x1="89" y1="120" x2="95" y2="120" stroke="#000"/><text x="85" y="125" text-anchor="end" font-size="15">2</text><line x1="89" y1="75" x2="95" y2="75" stroke="#000"/><text x="85" y="80" text-anchor="end" font-size="15">3</text><line x1="89" y1="30" x2="95" y2="30" stroke="#000"/><text x="85" y="35" text-anchor="end" font-size="15">4</text><text x="122.0" y="224" text-anchor="end" font-size="14" transform="rotate(-45 122.0 224)">40-45</text><text x="164.0" y="224" text-anchor="end" font-size="14" transform="rotate(-45 164.0 224)">45-50</text><text x="206.0" y="224" text-anchor="end" font-size="14" transform="rotate(-45 206.0 224)">50-55</text><text x="248.0" y="224" text-anchor="end" font-size="14" transform="rotate(-45 248.0 224)">55-60</text><text x="290.0" y="224" text-anchor="end" font-size="14" transform="rotate(-45 290.0 224)">60-65</text><text x="332.0" y="224" text-anchor="end" font-size="14" transform="rotate(-45 332.0 224)">65-70</text><text x="374.0" y="224" text-anchor="end" font-size="14" transform="rotate(-45 374.0 224)">70-75</text><text x="416.0" y="224" text-anchor="end" font-size="14" transform="rotate(-45 416.0 224)">75-80</text><text x="0" y="0" text-anchor="middle" font-size="16" transform="translate(52 120) rotate(-90)">Number of years</text><text x="268" y="300" text-anchor="middle" font-size="16">Maximum temperature on April 1 (°F)</text></svg>`
       + `The temperature of 77.4 degrees Fahrenheit is removed from this data set to create a new data set of 10 temperatures. Which of the following statements must be true?`
@@ -756,224 +803,180 @@ const QUESTIONS = [
     options: [`I only`, `II only`, `I and II`, `Neither I nor II`],
     correctKey: "A" },
 
-  /* Q13 ← gốc 169 */
-  { id: 13, module: 1, domain: "Algebra", type: "mcq",
-    questionText: `In the relationship between <i>x</i> and <i>y</i>, each increase of 1 in the value of <i>x</i> decreases the value of <i>y</i> by ${F('4','5')}. When <i>x</i> = −5, <i>y</i> = −1. Which equation represents this relationship?`,
-    image: null,
-    options: [`<i>y</i> = −${F('4','5')}<i>x</i> − 5`, `<i>y</i> = −${F('4','5')}<i>x</i> + 5`, `<i>y</i> = ${F('4','5')}<i>x</i> − 5`, `<i>y</i> = ${F('4','5')}<i>x</i> + 5`],
-    correctKey: "A" },
-
-  /* Q14 ← gốc 172 */
-  { id: 14, module: 1, domain: "Advanced Math", type: "mcq",
-    questionText: EQ(`<i>x</i>(<i>x</i> + 11) − 15 = 0`) + `What are the solutions to the given equation?`,
-    image: null,
-    options: [`<i>x</i> = ${F('11 ± ' + SQ('61'), '2')}`, `<i>x</i> = ${F('11 ± ' + SQ('181'), '2')}`, `<i>x</i> = ${F('−11 ± ' + SQ('61'), '2')}`, `<i>x</i> = ${F('−11 ± ' + SQ('181'), '2')}`],
-    correctKey: "D" },
-
-  /* Q15 ← gốc 145 */
-  { id: 15, module: 1, domain: "Geometry and Trigonometry", type: "gridin",
+  /* Q18 ← gốc 145 */
+  { id: 18, module: 1, domain: "Geometry and Trigonometry", type: "gridin",
     questionText: `The radius of circle <i>P</i> is 210 centimeters. What is the diameter of circle <i>P</i>, in centimeters?`,
     image: null, correctKey: "420" },
 
-  /* Q16 ← gốc 151 */
-  { id: 16, module: 1, domain: "Geometry and Trigonometry", type: "mcq",
-    questionText: `A cube has an edge length of 31 inches. What is the volume, in cubic inches, of the cube?`,
-    image: null,
-    options: [`124`, `961`, `5,766`, `29,791`],
-    correctKey: "D" },
+  /* Q19 ← gốc 164 */
+  { id: 19, module: 1, domain: "Advanced Math", type: "gridin",
+    questionText: `The function <i>f</i> is defined by <i>f</i>(<i>x</i>) = ${F('15','14 − <i>x</i>')}. What is the value of <i>f</i>(<i>x</i>) when <i>x</i> = 9?`,
+    image: null, correctKey: "3" },
 
-  /* Q17 ← gốc 156 */
-  { id: 17, module: 1, domain: "Problem-Solving and Data Analysis", type: "mcq",
-    questionText: `At a nature preserve, a wildlife biologist counted bald eagles from an observation deck at the same time each day for 21 days.`
-      + `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;margin:6px auto 18px;"><tr><td style="border:1px solid #111;padding:10px 26px;">Number of bald eagles</td><td style="border:1px solid #111;padding:10px 26px;">Number of days</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">0</td><td style="border:1px solid #111;padding:10px 26px;">1</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">1</td><td style="border:1px solid #111;padding:10px 26px;">3</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">2</td><td style="border:1px solid #111;padding:10px 26px;">4</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">3</td><td style="border:1px solid #111;padding:10px 26px;">5</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">4</td><td style="border:1px solid #111;padding:10px 26px;">4</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">5</td><td style="border:1px solid #111;padding:10px 26px;">3</td></tr><tr><td style="border:1px solid #111;padding:10px 26px;">19</td><td style="border:1px solid #111;padding:10px 26px;">1</td></tr></table>`
-      + `The table summarizes the resulting data set, data set A. The data value 19 was recorded in error and is removed from data set A to create data set B, which consists of the remaining 20 data values. Which statement best compares the median of data set A and the median of data set B?`,
-    image: null,
-    options: [`The median of data set B is less than the median of data set A.`, `The median of data set B is equal to the median of data set A.`, `The median of data set B is greater than the median of data set A.`, `There is not enough information to compare the medians of the two data sets.`],
-    correctKey: "B" },
+  /* Q20 ← gốc 152 */
+  { id: 20, module: 1, domain: "Advanced Math", type: "gridin",
+    questionText: `The expression 7(9<i>x</i> + 13)(<i>x</i> − 3) − (5<i>x</i> + 19) can be written in the form <i>ax</i><sup>2</sup> + <i>bx</i> + <i>c</i>, where <i>a</i>, <i>b</i>, and <i>c</i> are constants. What is the value of <i>b</i>?`,
+    image: null, correctKey: "-103" },
 
-  /* Q18 ← gốc 162 */
-  { id: 18, module: 1, domain: "Geometry and Trigonometry", type: "gridin",
+  /* Q21 ← gốc 132 */
+  { id: 21, module: 1, domain: "Advanced Math", type: "gridin",
+    questionText: EQ(F('1','<i>x</i> − 1') + ` = ` + F('<i>x</i> − 4','−<i>x</i> + 0.25')) + `What is one of the solutions to the given equation?`,
+    image: null, correctKey: ["1.5", "3/2", "2.5", "5/2"] },
+
+  /* Q22 ← gốc 162 */
+  { id: 22, module: 1, domain: "Geometry and Trigonometry", type: "gridin",
     questionText: `<svg viewBox="0 0 400 270" width="400" style="display:block;margin:4px auto 0;max-width:100%;height:auto;font-family:'Minion Pro','Minion','Crimson Pro',Georgia,serif;" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="2"><ellipse cx="135" cy="30" rx="65" ry="17"/><line x1="70" y1="30" x2="70" y2="205"/><line x1="200" y1="30" x2="200" y2="205"/><path d="M70,205 A65,17 0 0 0 200,205"/><path d="M70,205 A65,17 0 0 1 200,205" stroke-dasharray="6,5" stroke-width="1.3"/><ellipse cx="290" cy="95" rx="39" ry="12"/><line x1="251" y1="95" x2="251" y2="190"/><line x1="329" y1="95" x2="329" y2="190"/><path d="M251,190 A39,12 0 0 0 329,190"/><path d="M251,190 A39,12 0 0 1 329,190" stroke-dasharray="6,5" stroke-width="1.3"/></g><text x="135" y="255" text-anchor="middle" font-size="18">Cylinder A</text><text x="290" y="255" text-anchor="middle" font-size="18">Cylinder B</text></svg><div style="text-align:center;margin:6px 0 16px;">Note: Figure not drawn to scale.</div>`
       + `Cylinder <i>A</i> is similar to cylinder <i>B</i>. The volume of cylinder <i>A</i> is 5.13 cubic units and the volume of cylinder <i>B</i> is 1.52 cubic units. The surface area of cylinder <i>A</i> is 16.47 square units. What is the surface area, in square units, of cylinder <i>B</i>?`,
     image: null, correctKey: "7.32" },
 
-  /* Q19 ← gốc 171 */
-  { id: 19, module: 1, domain: "Geometry and Trigonometry", type: "mcq",
-    questionText: `<svg viewBox="0 0 440 230" width="440" style="display:block;margin:4px auto 0;max-width:100%;height:auto;font-family:'Minion Pro','Minion','Crimson Pro',Georgia,serif;" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="2"><path d="M40,200 L125,30 L400,200 Z"/><line x1="80.8" y1="118.4" x2="268.0" y2="118.4"/></g><text x="117" y="22" text-anchor="middle" font-size="18" font-style="italic">Y</text><text x="28" y="218" text-anchor="middle" font-size="18" font-style="italic">X</text><text x="410" y="222" text-anchor="middle" font-size="18" font-style="italic">Z</text><text x="66.8" y="120.4" text-anchor="middle" font-size="18" font-style="italic">V</text><text x="282.0" y="120.4" text-anchor="middle" font-size="18" font-style="italic">W</text><text x="88.9" y="76.2" text-anchor="middle" font-size="18" font-style="italic">a</text><text x="46.4" y="161.2" text-anchor="middle" font-size="18" font-style="italic">c</text><text x="206.5" y="64.2" text-anchor="middle" font-size="18" font-style="italic">b</text><text x="346.0" y="149.2" text-anchor="middle" font-size="18" font-style="italic">d</text><text x="174.4" y="109.4" text-anchor="middle" font-size="16">35</text><text x="220.0" y="191" text-anchor="middle" font-size="16">55</text></svg><div style="text-align:center;margin:6px 0 16px;">Note: Figure not drawn to scale.</div>`
-      + `In triangle <i>XYZ</i>, a line segment <i>VW</i> is parallel to <i>XZ</i>, with <i>VW</i> = 35 and <i>XZ</i> = 55, as shown in the figure. If <i>YV</i> = <i>a</i>, <i>VX</i> = <i>c</i>, <i>YW</i> = <i>b</i>, and <i>WZ</i> = <i>d</i>, and we are given ${F('<i>a</i>','<i>c</i>')} = <i>k</i> and ${F('<i>b</i>','<i>d</i>')} = <i>k</i>, what is the value of <i>k</i>?`,
+  /* ===================== MODULE 2 ===================== */
+  /* Q23 ← gốc 155 */
+  { id: 23, module: 2, domain: "Advanced Math", type: "mcq",
+    questionText: `The graph of a polynomial function <i>y</i> = <i>f</i>(<i>x</i>) in the <i>xy</i>-plane passes through the point (9, 5). What is the value of <i>f</i>(9)?`,
     image: null,
-    options: [F('4','7'), F('7','4'), F('7','11'), F('11','7')],
+    options: [`5`, `9`, `14`, `45`],
+    correctKey: "A" },
+
+  /* Q24 ← gốc 159 */
+  { id: 24, module: 2, domain: "Algebra", type: "mcq",
+    questionText: `Line <i>c</i> is defined by <i>y</i> = 5<i>x</i> + 8. Line <i>d</i> is parallel to line <i>c</i> in the <i>xy</i>-plane. What is the slope of line <i>d</i>?`,
+    image: null,
+    options: [`3`, `5`, `8`, `13`],
     correctKey: "B" },
 
-  /* Q20 ← gốc 176 */
-  { id: 20, module: 1, domain: "Geometry and Trigonometry", type: "mcq",
-    questionText: `In triangle <i>XYZ</i>, two of the angles have the same measure. If the measure of angle <i>X</i> is 158 degrees and the measure of angle <i>Y</i> is 11 degrees, what is the measure of angle <i>Z</i>?`,
+  /* Q25 ← gốc 173 */
+  { id: 25, module: 2, domain: "Geometry and Trigonometry", type: "mcq",
+    questionText: `A cube has an edge length of 36 inches. What is the volume, in cubic inches, of the cube?`,
     image: null,
-    options: [`180 degrees`, `158 degrees`, `22 degrees`, `11 degrees`],
-    correctKey: "D" },
-
-  /* Q21 ← gốc 152 */
-  { id: 21, module: 1, domain: "Advanced Math", type: "gridin",
-    questionText: `The expression 7(9<i>x</i> + 13)(<i>x</i> − 3) − (5<i>x</i> + 19) can be written in the form <i>ax</i><sup>2</sup> + <i>bx</i> + <i>c</i>, where <i>a</i>, <i>b</i>, and <i>c</i> are constants. What is the value of <i>b</i>?`,
-    image: null, correctKey: "-103" },
-
-  /* Q22 ← gốc 157 */
-  { id: 22, module: 1, domain: "Algebra", type: "mcq",
-    questionText: EQ(`<i>v</i> = −` + F('<i>w</i>','133<i>x</i>')) + `The given equation relates the distinct numbers <i>v</i>, <i>w</i>, and <i>x</i>. Which equation correctly expresses <i>w</i> in terms of <i>v</i> and <i>x</i>?`,
-    image: null,
-    options: [`<i>w</i> = −133<i>vx</i>`, `<i>w</i> = −` + F('133<i>v</i>','<i>x</i>'), `<i>w</i> = −` + F('<i>v</i>','133<i>x</i>'), `<i>w</i> = <i>v</i> + 133<i>x</i>`],
+    options: [`46,656`, `7,776`, `1,296`, `144`],
     correctKey: "A" },
 
-  /* ===================== MODULE 2 ===================== */
-  /* Q23 ← gốc 123 */
-  { id: 23, module: 2, domain: "Problem-Solving and Data Analysis", type: "gridin",
-    questionText: `In a certain colony, one of the bees is a queen bee. Of the bees in this colony that are not the queen bee, 85% are worker bees, and the remaining bees are drones. If there are 11,004 drones in this colony, what is the total number of worker bees in this colony?`,
-    image: null, correctKey: "62356" },
-
-  /* Q24 ← gốc 133 */
-  { id: 24, module: 2, domain: "Algebra", type: "mcq",
-    questionText: `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;margin:6px auto 22px;"><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;"><i>x</i></td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;"><i>y</i></td></tr><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">0</td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">−4</td></tr><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">1</td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">2</td></tr><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">2</td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">8</td></tr></table>`
-      + `The table shows values of <i>x</i> and their corresponding values of <i>y</i> for three points on line <i>j</i> in the <i>xy</i>-plane. Line <i>k</i> also lies in the <i>xy</i>-plane and is defined by the equation <i>y</i> = 5<i>x</i>. At what point (<i>x</i>, <i>y</i>) do lines <i>j</i> and <i>k</i> intersect?`,
+  /* Q26 ← gốc 165 */
+  { id: 26, module: 2, domain: "Algebra", type: "mcq",
+    questionText: `The point (9, 3) in the <i>xy</i>-plane is a solution to which of the following systems of inequalities?`,
     image: null,
-    options: [`(4, 20)`, `(4, −10)`, `(5, 25)`, `(5, 26)`],
+    options: [`<i>x</i> &gt; 0<br><i>y</i> &gt; 0`, `<i>x</i> &gt; 0<br><i>y</i> &lt; 0`, `<i>x</i> &lt; 0<br><i>y</i> &gt; 0`, `<i>x</i> &lt; 0<br><i>y</i> &lt; 0`],
     correctKey: "A" },
 
-  /* Q25 ← gốc 138 */
-  { id: 25, module: 2, domain: "Problem-Solving and Data Analysis", type: "mcq",
+  /* Q27 ← gốc 141 */
+  { id: 27, module: 2, domain: "Algebra", type: "mcq",
+    questionText: `The Southern Oscillation Index (SOI) predicts weather patterns in the Pacific Ocean. SOI values less than −7 over a period of time predict a temporary decrease in the strength of the Pacific trade winds. Each of the following inequalities represents SOI values, <i>s</i>, over a certain period of time. Which inequality represents SOI values that predict a temporary decrease in the strength of the Pacific trade winds?`,
+    image: null,
+    options: [`−27 &lt; <i>s</i> &lt; −17`, `−7 &lt; <i>s</i> &lt; 0`, `−7 &lt; <i>s</i> &lt; 7`, `19 &lt; <i>s</i> &lt; 24`],
+    correctKey: "A" },
+
+  /* Q28 ← gốc 175 */
+  { id: 28, module: 2, domain: "Advanced Math", type: "mcq",
+    questionText: `Marko purchased a camera in September 2017 when the camera had a value of 1,000 dollars. Each month for the next 50 months, the value of the camera decreased by 3% of the previous month's value. Which equation represents this situation, where <i>v</i> is the value of the camera, in dollars, <i>m</i> is the number of months since Marko purchased the camera, and <i>m</i> ≤ 50?`,
+    image: null,
+    options: [`<i>v</i> = 2,017(0.97)<sup><i>m</i></sup>`, `<i>v</i> = 2,017(3)<sup><i>m</i></sup>`, `<i>v</i> = 1,000(0.97)<sup><i>m</i></sup>`, `<i>v</i> = 1,000(3)<sup><i>m</i></sup>`],
+    correctKey: "C" },
+
+  /* Q29 ← gốc 138 */
+  { id: 29, module: 2, domain: "Problem-Solving and Data Analysis", type: "mcq",
     questionText: `<svg viewBox="0 0 440 322" width="440" style="display:block;margin:4px auto 16px;max-width:100%;height:auto;font-family:'Minion Pro','Minion','Crimson Pro',Georgia,serif;" xmlns="http://www.w3.org/2000/svg"><g stroke="#222" stroke-width="0.9"><line x1="90" y1="293.0" x2="90" y2="39.4"/><line x1="120" y1="293.0" x2="120" y2="39.4"/><line x1="150" y1="293.0" x2="150" y2="39.4"/><line x1="180" y1="293.0" x2="180" y2="39.4"/><line x1="210" y1="293.0" x2="210" y2="39.4"/><line x1="240" y1="293.0" x2="240" y2="39.4"/><line x1="270" y1="293.0" x2="270" y2="39.4"/><line x1="300" y1="293.0" x2="300" y2="39.4"/><line x1="330" y1="293.0" x2="330" y2="39.4"/><line x1="360" y1="293.0" x2="360" y2="39.4"/><line x1="55" y1="277.0" x2="375.0" y2="277.0"/><line x1="55" y1="266.0" x2="375.0" y2="266.0"/><line x1="55" y1="255.0" x2="375.0" y2="255.0"/><line x1="55" y1="244.0" x2="375.0" y2="244.0"/><line x1="55" y1="233.0" x2="375.0" y2="233.0"/><line x1="55" y1="222.0" x2="375.0" y2="222.0"/><line x1="55" y1="211.0" x2="375.0" y2="211.0"/><line x1="55" y1="200.0" x2="375.0" y2="200.0"/><line x1="55" y1="189.0" x2="375.0" y2="189.0"/><line x1="55" y1="178.0" x2="375.0" y2="178.0"/><line x1="55" y1="167.0" x2="375.0" y2="167.0"/><line x1="55" y1="156.0" x2="375.0" y2="156.0"/><line x1="55" y1="145.0" x2="375.0" y2="145.0"/><line x1="55" y1="134.0" x2="375.0" y2="134.0"/><line x1="55" y1="123.0" x2="375.0" y2="123.0"/><line x1="55" y1="112.0" x2="375.0" y2="112.0"/><line x1="55" y1="101.0" x2="375.0" y2="101.0"/><line x1="55" y1="90.0" x2="375.0" y2="90.0"/><line x1="55" y1="79.0" x2="375.0" y2="79.0"/><line x1="55" y1="68.0" x2="375.0" y2="68.0"/><line x1="55" y1="57.0" x2="375.0" y2="57.0"/><line x1="55" y1="46.0" x2="375.0" y2="46.0"/></g><line x1="60" y1="288.0" x2="390" y2="288.0" stroke="#000" stroke-width="1.4"/><path d="M393,288.0 l-9,-4 l0,8 z"/><line x1="60" y1="288.0" x2="60" y2="32.8" stroke="#000" stroke-width="1.4"/><path d="M60,29.8 l-4,9 l8,0 z"/><text x="120" y="308.0" text-anchor="middle" font-size="13">2</text><text x="180" y="308.0" text-anchor="middle" font-size="13">4</text><text x="240" y="308.0" text-anchor="middle" font-size="13">6</text><text x="300" y="308.0" text-anchor="middle" font-size="13">8</text><text x="360" y="308.0" text-anchor="middle" font-size="13">10</text><text x="54" y="270.0" text-anchor="end" font-size="13">10</text><text x="54" y="248.0" text-anchor="end" font-size="13">20</text><text x="54" y="226.0" text-anchor="end" font-size="13">30</text><text x="54" y="204.0" text-anchor="end" font-size="13">40</text><text x="54" y="182.0" text-anchor="end" font-size="13">50</text><text x="54" y="160.0" text-anchor="end" font-size="13">60</text><text x="54" y="138.0" text-anchor="end" font-size="13">70</text><text x="54" y="116.0" text-anchor="end" font-size="13">80</text><text x="54" y="94.0" text-anchor="end" font-size="13">90</text><text x="54" y="72.0" text-anchor="end" font-size="13">100</text><text x="54" y="50.0" text-anchor="end" font-size="13">110</text><text x="48" y="308.0" text-anchor="end" font-size="14" font-style="italic">O</text><text x="400" y="292.0" font-size="15" font-style="italic">x</text><text x="60" y="24.8" text-anchor="middle" font-size="15" font-style="italic">y</text><line x1="60" y1="107.6" x2="375.0" y2="77.6" stroke="#000" stroke-width="2.6"/><circle cx="174.0" cy="90.0" r="3.6"/><circle cx="228.0" cy="98.8" r="3.6"/><circle cx="246.0" cy="85.6" r="3.6"/><circle cx="264.0" cy="83.4" r="3.6"/><circle cx="276.0" cy="94.4" r="3.6"/><circle cx="288.0" cy="92.2" r="3.6"/><circle cx="324.0" cy="76.8" r="3.6"/><circle cx="345.0" cy="87.8" r="3.6"/><circle cx="366.0" cy="72.4" r="3.6"/></svg>`
       + `The scatterplot shows the relationship between two variables, <i>x</i> and <i>y</i>, with 9 data points. A line of best fit for the data is also shown. For how many of the 9 data points is the actual <i>y</i>-value greater than the <i>y</i>-value predicted by the line of best fit?`,
     image: null,
     options: [`8`, `7`, `5`, `2`],
     correctKey: "C" },
 
-  /* Q26 ← gốc 141 */
-  { id: 26, module: 2, domain: "Algebra", type: "mcq",
-    questionText: `The Southern Oscillation Index (SOI) predicts weather patterns in the Pacific Ocean. SOI values less than −7 over a period of time predict a temporary decrease in the strength of the Pacific trade winds. Each of the following inequalities represents SOI values, <i>s</i>, over a certain period of time. Which inequality represents SOI values that predict a temporary decrease in the strength of the Pacific trade winds?`,
-    image: null,
-    options: [`−27 &lt; <i>s</i> &lt; −17`, `−7 &lt; <i>s</i> &lt; 0`, `−7 &lt; <i>s</i> &lt; 7`, `19 &lt; <i>s</i> &lt; 24`],
-    correctKey: "A" },
-
-  /* Q27 ← gốc 142 */
-  { id: 27, module: 2, domain: "Advanced Math", type: "mcq",
-    questionText: EQ(`<i>f</i>(<i>x</i>) = 11<sup>−4(<i>x</i>+1)</sup>`) + `Which of the following equivalent forms of the given function <i>f</i> displays, as the base or the coefficient, the <i>y</i>-coordinate of the <i>y</i>-intercept of the graph of <i>y</i> = <i>f</i>(<i>x</i>) in the <i>xy</i>-plane?`,
-    image: null,
-    options: [`<i>f</i>(<i>x</i>) = ` + F('1','14,641') + `(` + F('1','11') + `)<sup>4<i>x</i></sup>`, `<i>f</i>(<i>x</i>) = (` + F('1','11') + `)<sup>4<i>x</i>+4</sup>`, `<i>f</i>(<i>x</i>) = 11<sup>−4<i>x</i>−4</sup>`, `<i>f</i>(<i>x</i>) = 14,641<sup>−<i>x</i>−1</sup>`],
-    correctKey: "A" },
-
-  /* Q28 ← gốc 146 */
-  { id: 28, module: 2, domain: "Advanced Math", type: "mcq",
-    questionText: EQ(`<i>x</i> − <i>a</i> = (<i>x</i> − <i>a</i>)(<i>x</i> − 27)`) + `Which of the following are solutions to the given equation, where <i>a</i> is a constant and <i>a</i> &gt; 28?`
-      + `<div style="margin-top:14px;">I. <i>a</i><br>II. 27<br>III. 28</div>`,
-    image: null,
-    options: [`I and II only`, `I and III only`, `II and III only`, `I, II, and III`],
-    correctKey: "B" },
-
-  /* Q29 ← gốc 148 */
-  { id: 29, module: 2, domain: "Algebra", type: "mcq",
+  /* Q30 ← gốc 148 */
+  { id: 30, module: 2, domain: "Algebra", type: "mcq",
     questionText: EQ(F('1','42') + `<i>x</i> = ` + F('1','84') + `<i>x</i>`) + `How many solutions does the given equation have?`,
     image: null,
     options: [`Zero`, `Exactly one`, `Exactly two`, `Infinitely many`],
     correctKey: "B" },
 
-  /* Q30 ← gốc 153 */
-  { id: 30, module: 2, domain: "Algebra", type: "mcq",
-    questionText: `The function <i>f</i> is defined by <i>f</i>(<i>x</i>) = −${F('1','2')}(<i>x</i> − 11) + 6. For what value of <i>x</i> does <i>f</i>(<i>x</i>) = 3<i>a</i>, where <i>a</i> is a constant?`,
+  /* Q31 ← gốc 133 */
+  { id: 31, module: 2, domain: "Algebra", type: "mcq",
+    questionText: `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;margin:6px auto 22px;"><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;"><i>x</i></td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;"><i>y</i></td></tr><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">0</td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">−4</td></tr><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">1</td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">2</td></tr><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">2</td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">8</td></tr></table>`
+      + `The table shows values of <i>x</i> and their corresponding values of <i>y</i> for three points on line <i>j</i> in the <i>xy</i>-plane. Line <i>k</i> also lies in the <i>xy</i>-plane and is defined by the equation <i>y</i> = 5<i>x</i>. At what point (<i>x</i>, <i>y</i>) do lines <i>j</i> and <i>k</i> intersect?`,
     image: null,
-    options: [`−` + F('3<i>a</i>','2') + ` + ` + F('1','2'), `−` + F('3<i>a</i>','2') + ` + ` + F('23','2'), `−6<i>a</i> + 23`, `−6<i>a</i> − 1`],
-    correctKey: "C" },
+    options: [`(4, 20)`, `(4, −10)`, `(5, 25)`, `(5, 26)`],
+    correctKey: "A" },
 
-  /* Q31 ← gốc 158 */
-  { id: 31, module: 2, domain: "Advanced Math", type: "mcq",
+  /* Q32 ← gốc 158 */
+  { id: 32, module: 2, domain: "Advanced Math", type: "mcq",
     questionText: `In the <i>xy</i>-plane, the graph of <i>y</i> = ${F('1','2')}(<i>x</i> − 2)(<i>x</i> + 5)(<i>x</i> − <i>c</i>), where <i>c</i> is a constant, has a <i>y</i>-intercept of (0, 40). What is the value of <i>c</i>?`,
     image: null,
     options: [`4`, `8`, `10`, `40`],
     correctKey: "B" },
 
-  /* Q32 ← gốc 161 */
-  { id: 32, module: 2, domain: "Advanced Math", type: "gridin",
-    questionText: EQ(`(<i>d</i> − 33)(<i>d</i> + 33) − 9 = −9`) + `What is a solution to the given equation?`,
-    image: null, correctKey: ["33", "-33"] },
-
-  /* Q33 ← gốc 165 */
+  /* Q33 ← gốc 170 */
   { id: 33, module: 2, domain: "Algebra", type: "mcq",
-    questionText: `The point (9, 3) in the <i>xy</i>-plane is a solution to which of the following systems of inequalities?`,
-    image: null,
-    options: [`<i>x</i> &gt; 0<br><i>y</i> &gt; 0`, `<i>x</i> &gt; 0<br><i>y</i> &lt; 0`, `<i>x</i> &lt; 0<br><i>y</i> &gt; 0`, `<i>x</i> &lt; 0<br><i>y</i> &lt; 0`],
-    correctKey: "A" },
-
-  /* Q34 ← gốc 167 */
-  { id: 34, module: 2, domain: "Problem-Solving and Data Analysis", type: "mcq",
-    questionText: `The positive number <i>a</i> is 2,047% of the sum of the positive numbers <i>b</i> and <i>c</i>, and <i>b</i> is 89% of <i>c</i>. What percent of <i>b</i> is <i>a</i>?`,
-    image: null,
-    options: [`4,347%`, `2,136%`, `43.47%`, `21.36%`],
-    correctKey: "A" },
-
-  /* Q35 ← gốc 170 */
-  { id: 35, module: 2, domain: "Algebra", type: "mcq",
     questionText: `During a trip, a car traveled a total of 450 miles on city roads and highways and used a total of 15 gallons of gas. The car traveled an average of 29 miles per gallon of gas on city roads and 35 miles per gallon of gas on highways. Which system of equations represents this situation, where <i>c</i> is the number of miles the car traveled on city roads and <i>h</i> is the number of miles the car traveled on highways?`,
     image: null,
     options: [`<i>c</i> + <i>h</i> = 15<br>` + F('<i>c</i>','29') + ` + ` + F('<i>h</i>','35') + ` = 450`, `<i>c</i> + <i>h</i> = 15<br>29<i>c</i> + 35<i>h</i> = 450`, `<i>c</i> + <i>h</i> = 450<br>` + F('<i>c</i>','29') + ` + ` + F('<i>h</i>','35') + ` = 15`, `<i>c</i> + <i>h</i> = 450<br>29<i>c</i> + 35<i>h</i> = 15`],
     correctKey: "C" },
 
-  /* Q36 ← gốc 174 */
-  { id: 36, module: 2, domain: "Algebra", type: "mcq",
+  /* Q34 ← gốc 153 */
+  { id: 34, module: 2, domain: "Algebra", type: "mcq",
+    questionText: `The function <i>f</i> is defined by <i>f</i>(<i>x</i>) = −${F('1','2')}(<i>x</i> − 11) + 6. For what value of <i>x</i> does <i>f</i>(<i>x</i>) = 3<i>a</i>, where <i>a</i> is a constant?`,
+    image: null,
+    options: [`−` + F('3<i>a</i>','2') + ` + ` + F('1','2'), `−` + F('3<i>a</i>','2') + ` + ` + F('23','2'), `−6<i>a</i> + 23`, `−6<i>a</i> − 1`],
+    correctKey: "C" },
+
+  /* Q35 ← gốc 174 */
+  { id: 35, module: 2, domain: "Algebra", type: "mcq",
     questionText: `<table style="border-collapse:collapse;margin:0 auto;text-align:center;font-size:16px;margin:6px auto 22px;"><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;"><i>x</i></td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;"><i>t</i>(<i>x</i>)</td></tr><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">27</td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">14</td></tr><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">36</td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">${F('37','2')}</td></tr><tr><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">49</td><td style="border:1px solid #111;padding:12px 22px;min-width:40px;">25</td></tr></table>`
       + `For the linear function <i>t</i>, the table shows three values of <i>x</i> and their corresponding values of <i>t</i>(<i>x</i>). Function <i>v</i> is defined by <i>v</i>(<i>x</i>) = <i>t</i>(<i>x</i>) − 3. What is the <i>x</i>-intercept of the graph of <i>y</i> = <i>v</i>(<i>x</i>) in the <i>xy</i>-plane?`,
     image: null,
     options: [`(6, 0)`, `(5, 0)`, `(2, 0)`, `(−1, 0)`],
     correctKey: "B" },
 
-  /* Q37 ← gốc 175 */
-  { id: 37, module: 2, domain: "Advanced Math", type: "mcq",
-    questionText: `Marko purchased a camera in September 2017 when the camera had a value of 1,000 dollars. Each month for the next 50 months, the value of the camera decreased by 3% of the previous month's value. Which equation represents this situation, where <i>v</i> is the value of the camera, in dollars, <i>m</i> is the number of months since Marko purchased the camera, and <i>m</i> ≤ 50?`,
+  /* Q36 ← gốc 146 */
+  { id: 36, module: 2, domain: "Advanced Math", type: "mcq",
+    questionText: EQ(`<i>x</i> − <i>a</i> = (<i>x</i> − <i>a</i>)(<i>x</i> − 27)`) + `Which of the following are solutions to the given equation, where <i>a</i> is a constant and <i>a</i> &gt; 28?`
+      + `<div style="margin-top:14px;">I. <i>a</i><br>II. 27<br>III. 28</div>`,
     image: null,
-    options: [`<i>v</i> = 2,017(0.97)<sup><i>m</i></sup>`, `<i>v</i> = 2,017(3)<sup><i>m</i></sup>`, `<i>v</i> = 1,000(0.97)<sup><i>m</i></sup>`, `<i>v</i> = 1,000(3)<sup><i>m</i></sup>`],
-    correctKey: "C" },
-
-  /* Q38 ← gốc 150 */
-  { id: 38, module: 2, domain: "Problem-Solving and Data Analysis", type: "gridin",
-    questionText: `As the size of a firework's shell increases, the height above the ground when the firework bursts increases. For a firework to burst 858 feet above the ground, a firework's shell in the shape of a sphere with a volume of 282.40 cubic inches could be used. To the nearest whole number, what is the volume of this firework's shell in cubic centimeters? (1 inch = 2.54 centimeters)`,
-    image: null, correctKey: "4628" },
-
-  /* Q39 ← gốc 159 */
-  { id: 39, module: 2, domain: "Algebra", type: "mcq",
-    questionText: `Line <i>c</i> is defined by <i>y</i> = 5<i>x</i> + 8. Line <i>d</i> is parallel to line <i>c</i> in the <i>xy</i>-plane. What is the slope of line <i>d</i>?`,
-    image: null,
-    options: [`3`, `5`, `8`, `13`],
+    options: [`I and II only`, `I and III only`, `II and III only`, `I, II, and III`],
     correctKey: "B" },
 
-  /* Q40 ← gốc 166 */
-  { id: 40, module: 2, domain: "Geometry and Trigonometry", type: "gridin",
-    questionText: `Triangle <i>ABC</i> is similar to triangle <i>DEF</i>, where angle <i>A</i> corresponds to angle <i>D</i> and angle <i>C</i> corresponds to angle <i>F</i>. Angles <i>C</i> and <i>F</i> are right angles. If tan(<i>A</i>) = ${F('25','13')}, what is the value of tan(<i>E</i>)?`,
-    image: null, correctKey: ["13/25", "0.52", ".52"] },
-
-  /* Q41 ← gốc 173 */
-  { id: 41, module: 2, domain: "Geometry and Trigonometry", type: "mcq",
-    questionText: `A cube has an edge length of 36 inches. What is the volume, in cubic inches, of the cube?`,
+  /* Q37 ← gốc 167 */
+  { id: 37, module: 2, domain: "Problem-Solving and Data Analysis", type: "mcq",
+    questionText: `The positive number <i>a</i> is 2,047% of the sum of the positive numbers <i>b</i> and <i>c</i>, and <i>b</i> is 89% of <i>c</i>. What percent of <i>b</i> is <i>a</i>?`,
     image: null,
-    options: [`46,656`, `7,776`, `1,296`, `144`],
+    options: [`4,347%`, `2,136%`, `43.47%`, `21.36%`],
     correctKey: "A" },
 
-  /* Q42 ← gốc 137 */
-  { id: 42, module: 2, domain: "Advanced Math", type: "mcq",
+  /* Q38 ← gốc 142 */
+  { id: 38, module: 2, domain: "Advanced Math", type: "mcq",
+    questionText: EQ(`<i>f</i>(<i>x</i>) = 11<sup>−4(<i>x</i>+1)</sup>`) + `Which of the following equivalent forms of the given function <i>f</i> displays, as the base or the coefficient, the <i>y</i>-coordinate of the <i>y</i>-intercept of the graph of <i>y</i> = <i>f</i>(<i>x</i>) in the <i>xy</i>-plane?`,
+    image: null,
+    options: [`<i>f</i>(<i>x</i>) = ` + F('1','14,641') + `(` + F('1','11') + `)<sup>4<i>x</i></sup>`, `<i>f</i>(<i>x</i>) = (` + F('1','11') + `)<sup>4<i>x</i>+4</sup>`, `<i>f</i>(<i>x</i>) = 11<sup>−4<i>x</i>−4</sup>`, `<i>f</i>(<i>x</i>) = 14,641<sup>−<i>x</i>−1</sup>`],
+    correctKey: "A" },
+
+  /* Q39 ← gốc 137 */
+  { id: 39, module: 2, domain: "Advanced Math", type: "mcq",
     questionText: `Which expression is a factor of <i>x</i><sup>4</sup> + 14<i>ax</i><sup>2</sup> + 49<i>a</i><sup>2</sup> − 64, where <i>a</i> is a positive constant?`,
     image: null,
     options: [`<i>x</i><sup>2</sup> + 7<i>a</i> + 8`, `<i>x</i><sup>2</sup> − 7<i>a</i> − 8`, `<i>x</i><sup>2</sup> + 14<i>a</i>`, `<i>x</i><sup>2</sup> − 8<i>a</i>`],
     correctKey: "A" },
 
-  /* Q43 ← gốc 155 */
-  { id: 43, module: 2, domain: "Advanced Math", type: "mcq",
-    questionText: `The graph of a polynomial function <i>y</i> = <i>f</i>(<i>x</i>) in the <i>xy</i>-plane passes through the point (9, 5). What is the value of <i>f</i>(9)?`,
-    image: null,
-    options: [`5`, `9`, `14`, `45`],
-    correctKey: "A" },
+  /* Q40 ← gốc 161 */
+  { id: 40, module: 2, domain: "Advanced Math", type: "gridin",
+    questionText: EQ(`(<i>d</i> − 33)(<i>d</i> + 33) − 9 = −9`) + `What is a solution to the given equation?`,
+    image: null, correctKey: ["33", "-33"] },
 
-  /* Q44 ← gốc 163 */
-  { id: 44, module: 2, domain: "Algebra", type: "mcq",
-    questionText: `If |14 − 2<i>x</i>| = 42, which of the following is a value of 7 − <i>x</i>?`,
-    image: null,
-    options: [`0`, `7`, `21`, `28`],
-    correctKey: "C" }
+  /* Q41 ← gốc 166 */
+  { id: 41, module: 2, domain: "Geometry and Trigonometry", type: "gridin",
+    questionText: `Triangle <i>ABC</i> is similar to triangle <i>DEF</i>, where angle <i>A</i> corresponds to angle <i>D</i> and angle <i>C</i> corresponds to angle <i>F</i>. Angles <i>C</i> and <i>F</i> are right angles. If tan(<i>A</i>) = ${F('25','13')}, what is the value of tan(<i>E</i>)?`,
+    image: null, correctKey: ["13/25", "0.52", ".52"] },
+
+  /* Q42 ← gốc 150 */
+  { id: 42, module: 2, domain: "Problem-Solving and Data Analysis", type: "gridin",
+    questionText: `As the size of a firework's shell increases, the height above the ground when the firework bursts increases. For a firework to burst 858 feet above the ground, a firework's shell in the shape of a sphere with a volume of 282.40 cubic inches could be used. To the nearest whole number, what is the volume of this firework's shell in cubic centimeters? (1 inch = 2.54 centimeters)`,
+    image: null, correctKey: "4628" },
+
+  /* Q43 ← gốc 123 */
+  { id: 43, module: 2, domain: "Problem-Solving and Data Analysis", type: "gridin",
+    questionText: `In a certain colony, one of the bees is a queen bee. Of the bees in this colony that are not the queen bee, 85% are worker bees, and the remaining bees are drones. If there are 11,004 drones in this colony, what is the total number of worker bees in this colony?`,
+    image: null, correctKey: "62356" },
+
+  /* Q44 ← gốc 143 */
+  { id: 44, module: 2, domain: "Advanced Math", type: "gridin",
+    questionText: `If <i>x</i> = <span style="white-space:nowrap;"><sup style="font-size:.6em;margin-right:-3px;">2<i>n</i></sup>${SQ('2<i>x</i><sup><i>n</i></sup> + 35')}</span>, where <i>n</i> is a positive integer constant, what is the value of <i>x</i><sup><i>n</i></sup>?`,
+    image: null, correctKey: "7" }
 ];
 
 
